@@ -3,7 +3,7 @@
 }
 
 <div class="text-left">
-    <h3 class="display-4">Product List</h3>
+    <h5 class="display-4">Product List</h5>
 </div>
 
 
@@ -44,12 +44,13 @@
                     "type": "POST"
                 },
                 columns: [
-                    { "data": "name" },
-                    { "data": "description" },
-                    { "data": "category" },
-                    { "data": "rating" },
-                    { "data": "price" },
-                ]
+                    { "data": "name", "name": "Name" },
+                    { "data": "description", "name": "Description" },
+                    { "data": "category", "name": "Category" },
+                    { "data": "rating", "name": "Rating" },
+                    { "data": "price", "name": "Price" },
+                ],
+                "order": [] // Disable initial sorting
             });
         });
     </script>

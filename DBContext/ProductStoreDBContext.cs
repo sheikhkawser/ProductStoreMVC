@@ -13,11 +13,11 @@ namespace ProductStore.DBContext
 
         public DbSet<Product> Products { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            //SeedData(modelBuilder);
-        }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
+        //    //SeedData(modelBuilder);
+        //}
 
         //private void SeedData(ModelBuilder modelBuilder)
         //{
