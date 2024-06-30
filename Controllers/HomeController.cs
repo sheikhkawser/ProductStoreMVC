@@ -26,35 +26,28 @@ namespace ProductStore.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> GetData()
+        [HttpGet]
+        public async Task<IActionResult> GetData([FromQuery] ProductQueryModel query)
         {
-            var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
-            var start = Request.Form["start"].FirstOrDefault();
-            var length = Request.Form["length"].FirstOrDefault();
-            var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
-            var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
-            var searchValue = Request.Form["search[value]"].FirstOrDefault();
-
-            int pageSize = length != null ? Convert.ToInt32(length) : 0;
-            int skip = start != null ? Convert.ToInt32(start) : 0;
+            int pageSize = Convert.ToInt32(query.Length);
+            int skip = Convert.ToInt32(query.Start);
 
             var data = _context.Products.AsQueryable();
 
-            if (!string.IsNullOrEmpty(searchValue))
+            if (!string.IsNullOrEmpty(query.SearchValue))
             {
-                data = data.Where(m => m.Name.Contains(searchValue)
-                                       || m.Category.Contains(searchValue)
-                                       || m.Description.Contains(searchValue)
-                                       || m.Height.ToString().Contains(searchValue)
-                                       || m.Width.ToString().Contains(searchValue)
-                                       || m.Price.ToString().Contains(searchValue)
-                                       || m.Rating.ToString().Contains(searchValue));
+                data = data.Where(m => m.Name.Contains(query.SearchValue)
+                                       || m.Category.Contains(query.SearchValue)
+                                       || m.Description.Contains(query.SearchValue)
+                                       || m.Height.ToString().Contains(query.SearchValue)
+                                       || m.Width.ToString().Contains(query.SearchValue)
+                                       || m.Price.ToString().Contains(query.SearchValue)
+                                       || m.Rating.ToString().Contains(query.SearchValue));
             }
 
-            if (!string.IsNullOrEmpty(sortColumn) && !string.IsNullOrEmpty(sortColumnDirection))
+            if (!string.IsNullOrEmpty(query.SortColumn) && !string.IsNullOrEmpty(query.SortColumnDirection))
             {
-                data = data.OrderBy($"{sortColumn} {sortColumnDirection}");
+                data = data.OrderBy($"{query.SortColumn} {query.SortColumnDirection}");
             }
 
             int recordsTotal = data.Count();
@@ -62,7 +55,7 @@ namespace ProductStore.Controllers
 
             var jsonData = new
             {
-                draw = draw,
+                draw = query.Draw,
                 recordsFiltered = recordsTotal,
                 recordsTotal = recordsTotal,
                 data = dataToReturn
