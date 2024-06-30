@@ -5,11 +5,8 @@ namespace ProductStore.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ProductStoreDBContext _context;
-
-        public HomeController(ProductStoreDBContext context)
+        public HomeController()
         {
-            _context = context;
         }
 
         public IActionResult Index()
