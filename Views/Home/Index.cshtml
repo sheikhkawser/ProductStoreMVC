@@ -27,16 +27,7 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            var dataSet = [
-                ["Tiger Nixon", "System Architect", "Edinburgh", "61", "2011/04/25", "$320,800"],
-                ["Garrett Winters", "Accountant", "Tokyo", "63", "2011/07/25", "$170,750"],
-                ["Ashton Cox", "Junior Technical Author", "San Francisco", "66", "2009/01/12", "$86,000"],
-                // Add more data rows as needed
-            ];
-
-            // Initialize DataTable with static data
             $('#demoGrid').DataTable({
-                // data: dataSet,
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
